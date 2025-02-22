@@ -11,6 +11,7 @@ export const getPlayerStats = async (playerTag: string) => {
     });
     return response.data;
   } catch (error) {
+    alert("Operation failed, check console for error and ensure your API key is set up");
     console.error("Error fetching player data:", error);
     return null;
   }
