@@ -1,51 +1,43 @@
-# React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Brawl Stars Stats Visualizer
+A React + TypeScript + Vite + D3 project that visualizes Brawl Stars player data using the Brawl Stars API. The app displays updated trophy and power level statistics in both table and scatterplot form, with D3 providing interactivity and force directed spacing in the scatterplot for any player.
 
-Currently, two official plugins are available:
+Note: This implementation only works locally due to the Brawl Stars API requiring a valid IP address for authentication. To make it publically accessible, a backend would need to be created to handle API requests securely with a single API key.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This material is unofficial and is not endorsed by Supercell. For more information see [Supercell's Fan Content Policy](https://supercell.com/en/fan-content-policy/)
 
-## Expanding the ESLint configuration
+## Home Page
+![Home Page](img/Home.png)
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Data Visualizations
 
-- Configure the top-level `parserOptions` property like this:
+### Table
+![Table](img/Table.png)
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+### Plot
+![Plot](img/Plot.png)
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+## Follow these steps to set up and run the project
+1. Ensure Node.js is installed  
+`node -v`  
+`npm -v`
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+2. Clone the repository and navigate to the project folder  
+`git clone https://github.com/awprevite/brawlstars-stats.git`  
+`cd brawlstars-stats`
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
->>>>>>> 50e4945 (Initial commit)
+3. Install dependencies  
+`npm install`
+
+4. Set up your API key  
+Go to the [Brawl Stars API website](https://developer.brawlstars.com/#/) and create an account and API key  
+Add your current IP address to the key's permissions
+
+5. Create a .env file in the root of your project and store your API key  
+`echo 'VITE_BRAWL_API_KEY="your-api-key"' > .env`
+
+6. Start the development server  
+`npm run dev`
+
+7. Open in browser  
+Go to the localhost URL displayed in your terminal to view the app

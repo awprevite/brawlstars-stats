@@ -1,35 +1,52 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from 'react';
+import { getPlayerStats } from './brawlstarsApi';
+import D3Chart from './d3plot';
+import './App.css';
+
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [stats, setStats] = useState<any>(null);
+  const [playerTag, setPlayerTag] = useState<string>("");
+
+  const handleTagChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPlayerTag(e.target.value.toUpperCase());
+  };
+
+  const handleGetStats = async () => {
+    if (playerTag) {
+      const playerStats = await getPlayerStats(playerTag);
+      setStats(playerStats);
+    } else {
+      alert('Please enter a player tag');
+    }
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className='parent-container'>
+      <h1>Get Your Brawlstars Stats!</h1>
+      <div className='tag-container'>
+        <p>Enter player tag #</p>
+        <input
+          className='tag-input'
+          type='text'
+          value={playerTag}
+          onChange={handleTagChange}
+        />
+        <button className='get-stats-button' onClick={handleGetStats}>Get stats</button>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
+      <div className='data-container'>
+        {stats ? (
+          <div>
+            <h1>{stats.name}'s Stats</h1>
+            <p>Trophies: {stats.trophies}</p>
+            <D3Chart stats={stats}/>
+          </div>
+        ) : (
+          <div>No player tag or loading...</div>
+        )}
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    </div>
+  );
+};
 
 export default App
